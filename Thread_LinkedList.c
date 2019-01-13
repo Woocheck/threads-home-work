@@ -16,7 +16,6 @@ struct node
   struct node* next;
 };
  
- 
 struct List
 {
   int elements_number;
@@ -52,7 +51,9 @@ int main(void)
     
   pthread_cond_init(&buff_cond_empty, NULL);
   pthread_cond_init(&buff_cond_full,  NULL);
+
   printf("Elements number %d \n", list->elements_number); //linijka do sprawdzania przekazanego argumentu
+
   for(int i = 0 ; i < PRODUCENTS_NUMBER ; ++i)
 	  pthread_create(&thread_producent[i], NULL, &fun_write, list);
   for(int i = 0 ; i < CONSUMER_NUMBER ; i++)
@@ -207,7 +208,7 @@ void list_print_element(const struct node* element )
 {
     struct List* t = ((struct List*)arg);
     int index = 0;
-	  while(index<10)
+	  while(index<10) //every thread send 10 numbers 0..9
     {
 	    pthread_mutex_lock(&my_mutex);
 	    
